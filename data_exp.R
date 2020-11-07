@@ -1,4 +1,4 @@
-#  Exploratory Data Analysis of Health Insurance Dataset 
+# Exploratory Data Analysis of Health Insurance Dataset 
 
 # Preamble: I have a dataset of customers with known health insurance status and 
 # some identified properties, such as age, employment status, income etc.
@@ -67,14 +67,41 @@ ggplot(data=custdata) +
 # Reorder the bar chart for better visualization 
 statesums <- table(custdata$state.of.res)
 
-statedf <- as.data.frame(statesums) %>% 
-  rename(state.of.res=Var1, count=Freq)
+stateDf <- as.data.frame(statesums) 
+colnames(stateDf) <- c('state.of.res', 'count')
+summary(stateDf)
+# Confirm the the state.of.res is ordered alphabetically
 
-statedf <- transform(statedf, state.of.res=reorder(state.of.res, count))
+stateDf <- transform(stateDf, state.of.res=reorder(state.of.res, count))
+summary(stateDf)
+# Confirm the the state.of.res is ordered by the count for plotting 
 
-ggplot(data=statedf) + 
-  geom_bar(aes(x=reorder(state.of.res, -count), y=count)) +
+ggplot(data=stateDf) +
+  geom_bar(aes(x=state.of.res, y=count), stat='identity') +
   coord_flip()
+
+# Investigate if there is relationship between 'age' and 'income'
+# Remove unreasonable age and income records
+custdata2 <- subset(custdata, custdata$age>0 & custdata$age<100 
+                    & custdata$income>0)
+
+# Check the correlation 
+cor(custdata2$age, custdata2$income)
+
+ggplot(data=custdata2, aes(x=age, y=income)) +
+  geom_point() + 
+  geom_smooth(se=TRUE)
+# The fit line suggests income increases with age first then decrease.
+
+# Visualize the the status of having insurance as the function of age 
+ggplot(data=custdata2, aes(x=age, y=as.numeric(health.ins))) +
+  geom_point(position=position_jitter(w=0.05, h=0.05)) +
+  geom_smooth()
+# This graph suggest younger people have higher chance of not having insurance.
+
+
+
+
 
 
 
