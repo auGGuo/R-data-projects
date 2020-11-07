@@ -85,13 +85,16 @@ ggplot(data=stateDf) +
 custdata2 <- subset(custdata, custdata$age>0 & custdata$age<100 
                     & custdata$income>0)
 
+library(hexbin)
+ggplot(data=custdata2, aes(x=age, y=income)) +
+  geom_hex(binwidth=c(5, 10000)) + #Age binned into 5-year increments, income in
+                                 #increments of $10,000.
+  geom_smooth(color='white', se=F) +
+  ylim(0, 200000)
+# The fit line suggests income increases with age first then decrease.
+
 # Check the correlation 
 cor(custdata2$age, custdata2$income)
-
-ggplot(data=custdata2, aes(x=age, y=income)) +
-  geom_point() + 
-  geom_smooth(se=TRUE)
-# The fit line suggests income increases with age first then decrease.
 
 # Visualize the the status of having insurance as the function of age 
 ggplot(data=custdata2, aes(x=age, y=as.numeric(health.ins))) +
@@ -99,6 +102,27 @@ ggplot(data=custdata2, aes(x=age, y=as.numeric(health.ins))) +
   geom_smooth()
 # This graph suggest younger people have higher chance of not having insurance.
 
+# Examine the status of insurance status as the function of marital status
+ggplot(data=custdata2) +
+  geom_bar(aes(x=marital.stat, fill=health.ins))
+# This chart focuses on the total number of each marital category with relative 
+# ratio of having insurance and not having insurance.
+
+ggplot(data=custdata2) +
+  geom_bar(aes(x=marital.stat, fill=health.ins), position='dodge')
+# This chart focuses on the quantity comparison of having insurance and not 
+# having insurance among 4 marital status
+
+ggplot(data=custdata2) +
+  geom_bar(aes(x=marital.stat, fill=health.ins), position='fill')
+# This chart focuses on the ratio comparison of insurance status across 
+# different marital.stat
+
+# Examine distribution of marital status across housing type 
+ggplot(data=custdata2) + 
+  geom_bar(aes(x=marital.stat)) +
+  facet_wrap(~housing.type, scales='free_y') +
+  theme(axis.text.x = element_text(angle=70, hjust=1))
 
 
 
