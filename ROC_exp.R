@@ -1,5 +1,4 @@
-# ROC and AOC Illustration
-# Oct20 2020
+# ROC and AOC
 
 library(pROC)
 library(randomForest)
@@ -34,11 +33,11 @@ roc(obese, glm.fit$fitted.values, plot=TRUE)
 par(pty='s')
 roc(obese, glm.fit$fitted.values, plot=TRUE)
 
-# we can fix the x axis to be 1-specificity
+# fix the x axis to be 1-specificity
 par(pty='s')
 roc(obese, glm.fit$fitted.values, plot=TRUE, legacy.axes=TRUE)
 
-# we can make relabel the x and y axes
+# relabel the x and y axes
 roc(obese, glm.fit$fitted.values, plot=TRUE, legacy.axes=TRUE, 
     percent=TRUE, 
     xlab='False Positive Percentage',
@@ -46,7 +45,7 @@ roc(obese, glm.fit$fitted.values, plot=TRUE, legacy.axes=TRUE,
     col='#377eb8',
     lwd=3)
 
-# take a look of the thresholds and corresponding tpp and fpp
+# check the thresholds and corresponding tpp and fpp
 roc.info = roc(obese, glm.fit$fitted.values, legacy.axes=TRUE)
 
 roc.df = data.frame(
