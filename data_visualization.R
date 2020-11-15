@@ -27,7 +27,7 @@ str(LPI.long)
 # Pick Griffon vulture / Eurasian griffon as a subset for further analysis
 vulture <- filter(LPI.long, Common.Name=='Griffon vulture / Eurasian griffon')
 
-# There are a lot of NAs in this dataframe, so we will get rid of the empty rows using na.omit()
+# Remove the empty rows
 vulture <- na.omit(vulture)
 
 # Histograms to visualise data distribution ----
@@ -37,13 +37,13 @@ vulture.hist
 
 # Make the histogram look better 
 vulture.hist <- ggplot(vulture, aes(x=abundance)) + 
-  geom_histogram(binwidth=250, col='orange4', fill='orange3') +  #Changing the binwidth and colours
-  geom_vline(aes(xintercept=mean(abundance)), # Adding a line for mean abundance
+  geom_histogram(binwidth=250, col='orange4', fill='orange3') + 
+  geom_vline(aes(xintercept=mean(abundance)), 
              colour='red', linetype='dashed', size=1) + 
-  theme_bw() + ## Changing the theme to get rid of the grey background
-  xlab('\nGriffon vulture abundance') + # \n adds a blank line between axis and text
+  theme_bw() +
+  xlab('\nGriffon vulture abundance') + 
   ylab('Count\n') +
-  theme(panel.grid = element_blank()) # Removing the grey grid lines
+  theme(panel.grid = element_blank())
 
 vulture.hist
 
