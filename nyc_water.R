@@ -1,6 +1,5 @@
 # NYC Drinking Water Quality Distribution Monitoring Data Analysis 
 # Oct 8 2020
-# August Guo
 
 # Packages 
 library(dplyr)
