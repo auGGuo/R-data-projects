@@ -24,7 +24,7 @@ ggplot(data=dtest, mapping=aes(x=predLogPINCP, y=log(PINCP, base=10))) +
   scale_y_continuous(limits=c(3.5, 5.5))
 
 # If the predictions are very good, then the plot will be dots
-# arranged near the line y=x, which we call the line of perfect prediction
+# arranged near the line y=x, which is the line of perfect prediction
 # however the graph shows the dots scatter widely along the blue line 
 # suggesting low quality fit 
 
@@ -33,9 +33,9 @@ ggplot(data=dtest, mapping=aes(x=predLogPINCP, y=log(PINCP, base=10))) +
 rsq <-function(y, f) { 1 - sum((y-f)^2)/sum((y-mean(y))^2) }
 rsq(log(dtrain$PINCP, base=10), predict(model, newdata = dtrain))
 rsq(log(dtest$PINCP, base=10), predict(model, newdata = dtest))
-# We’d like to see R-squares higher than this (say, 0.7–1.0).
-# A significantly lower R-squared on test data compared to train data is a symptom 
-# of an overfit model that looks good in training and won’t work in production.
+# We want to see R-squares higher than this (say, 0.7–1.0).
+# A significantly lower R-squared on test data compared to train data suggests 
+# an overfit model that looks good in training and won’t work in production.
 
 # calculate rmse
 rmse <- function(y, f){ sqrt(mean((y-f)^2)) }
@@ -56,8 +56,6 @@ coefficients(model)
 # The modeled relation between the bachelor’s degree holder’s expected income 
 # and high schoolgraduate’s (all other variables being equal) is 10^(0.39-0.10), 
 # or about 1.8 times greater.
-
-
 
 
 # check coefficients are reliable ----
