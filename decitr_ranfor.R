@@ -48,10 +48,10 @@ accuracyMeasures(predict(treemodel, newdata=spamTest),
                  spamTest$spam=="spam",
                  name="tree, test")
 
-#s expected, the accuracy and F1 scores both degrade on the test set, and the
+# the accuracy and F1 scores both degrade on the test set, and the
 # deviance increases (we want the deviance to be small)
 
-#Now let’s try bagging the decision trees.
+#Now try bagging the decision trees.
 ntrain <- dim(spamTrain)[1]
 # Use bootstrap samples the same size as the training set
 n <- ntrain 
