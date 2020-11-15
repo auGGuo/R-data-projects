@@ -26,9 +26,8 @@ model <- glm(fmla, data=train, family=binomial(link='logit'))
 
 train$pred <- predict(model, newdata=train, type='response')
 test$pred <- predict(model, newdata=test, type='response')
-# Note the additional parameter type="response". This tells the predict() function 
-# to return the predicted probabilities y. If you don’t specify type="response", 
-# then by default predict() will return the output of the link function, logit(y). 
+# type="response" tells the predict() function to return the predicted probabilities y. 
+# If you don’t specify, then by default predict() will return the output of the link function, logit(y). 
 
 library(ggplot2)
 
@@ -85,8 +84,7 @@ p2 <- ggplot(data=rocFrame, aes(x=threshold)) +
 
 nplot(list(p1, p2))
 
-# A threshold of 0.02 (which incidentally is about the overall rate of at-risk
-# births in the training data) might be a good trade-off. The resulting classifier 
+# A threshold of 0.02 might be a good trade-off. The resulting classifier 
 # will identify a set of potential at-risk situations that finds about half 
 # of all the true at-risk situations, with a true positive rate 2.5 times 
 # higher than the overall population 
