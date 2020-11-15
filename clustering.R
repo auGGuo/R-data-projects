@@ -12,9 +12,7 @@ summary(protein)
 vars.to.use <- colnames(protein)[-1]
 pmatrix <- scale(protein[, vars.to.use])
 
-# The scale() function annotates its output with two attributes—scaled:center
-# returns the mean values of all the columns, and scaled:scale returns the
-# standard deviations. Store these away so you can “unscale” the data later
+# Store mean and standard deviations so we can “unscale” the data later
 pcenter <- attr(pmatrix, 'scaled:center')
 pscale <- attr(pmatrix, 'scaled:scale')
 
@@ -41,7 +39,7 @@ print_clusters <- function(labels, k) {
 
 print_clusters(groups, 5)
 
-# Projecting the clusters on the first two principal components
+# Project the clusters on the first two principal components
 library(ggplot2)
 
 # Calculate the principal components of the data.
@@ -106,13 +104,11 @@ groups <- pclusters$cluster
 
 print_clusters(groups, kbest.p)
 
-# To run kmeans(), you must know k. The fpc package (the same package that has
+# To run kmeans(), we must know k. The fpc package (the same package that has
 # clusterboot()) has a function called kmeansruns() that calls kmeans() over 
 # a range of k and estimates the best k.
-
 # kmeansruns() has two criteria: the Calinski-Harabasz Index ("ch"), and the 
 # average silhouette width ("asw")
-
 clustering.ch <- kmeansruns(pmatrix, krange=1:10, criterion="ch")
 clustering.ch$bestk
 # The CH criterion picks two clusters.
