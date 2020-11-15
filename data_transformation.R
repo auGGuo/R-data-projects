@@ -1,5 +1,4 @@
 # Data Transformation
-# Oct 6 2020
 
 library(tidyverse)
 library(dplyr)
@@ -63,7 +62,7 @@ shortest_flight <- arrange(flights, distance)
 # 1. Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay
 select(flights, starts_with('dep'), starts_with('arr'))
 
-# 2. What happens if you include the name of a variable multiple times in a select() call?
+# 2. What happens if we include the name of a variable multiple times in a select() call?
 select(flights, dep_time, dep_time)
 
 # 3. What does the any_of() function do? Why might it be helpful in conjunction with this vector?
@@ -272,7 +271,6 @@ not_cancelled %>%
   group_by(year, month, day) %>% 
   summarise(hour_prop = mean(arr_delay > 60, na.rm = T))
 
-# 5.6.7 exercise
 
 
 
