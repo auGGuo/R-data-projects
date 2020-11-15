@@ -46,25 +46,13 @@ library(mgcv)
 # between x and y. Only terms surrounded by s() get the GAM/spline treatment.
 glin.model <- gam(y ~ s(x), data=train)
 
-#The converged parameter tells you if the algorithm converged.
-#You should only trust the output if this is TRUE.
+#The converged parameter tells us if the algorithm converged.
+# We should only trust the output if this is TRUE.
 glin.model$converged
 
 summary(glin.model)
 # r square
 cor(train$y, predict(glin.model))^2
-
-#Setting family=gaussian and link=identity tells you that the model was treated with
-#the same distributions assumptions as a standard linear regression.
-
-#The parametric coefficients are the linear terms (in this example, only the 
-#constant term). This section of the summary tells you which linear terms
-#were significantly different from 0.
-
-#The smooth terms are the nonlinear terms. This section of the summary tells you which
-#nonlinear terms were significantly different from 0. It also tells you the effective
-#degrees of freedom (edf) used up to build each smooth term. An edf near 1 indicates
-#that the variable has an approximately linear relationship to the output.
 
 #“R-sq (adj)” is the adjusted R-squared. “Deviance explained” is
 #the raw R-squared (0.834).
@@ -99,8 +87,7 @@ cor(actual, pred.glin)^2
 plot(glin.model)
 
 #We can extract the data points that were used to make this graph by using the
-#predict() function with the argument type="terms". This produces a matrix where
-#the ith column represents s(x[,i]).
+#predict() function with the argument type="terms". 
 
 sx <- predict(glin.model, type="terms")
 
@@ -112,11 +99,9 @@ ggplot(xframe, aes(x=x)) + geom_point(aes(y=y), alpha=0.4) +
   geom_line(aes(y=sx))
 
 
-#predict a newborn baby’s weight (DBWT) using data from the CDC 2010 natality 
-#dataset that we used in section 7.2 (though this is not the risk data used in 
-#that chapter).7 As input, we’ll consider mother’s weight (PWGT), mother’s pregnancy
-#weight gain (WTGAIN), mother’s age (MAGER), and the number of prenatal medical
-#visits (UPREVIS).8
+# Predict a newborn baby’s weight (DBWT). As input, consider mother’s weight (PWGT), 
+# mother’s pregnancy weight gain (WTGAIN), mother’s age (MAGER), and the number of 
+# prenatal medical visits (UPREVIS)
 
 library(mgcv)
 library(ggplot2)
@@ -148,7 +133,7 @@ pred.glin <- predict(glin.model, newdata=test)
 cor(pred.lin, test$DBWT)^2
 cor(pred.glin, test$DBWT)^2
 #The performance of the linear model and the GAM were similar on the test set, as they
-#were on the training set, so in this example there’s no substantial overfit.
+#were on the training set, so there’s no substantial overfit.
 
 #Using GAM for logistic regression
 #predict the birth of underweight babies (defined as DBWT < 2000)
