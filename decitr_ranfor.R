@@ -131,9 +131,9 @@ varImp[1:10,]
 varImpPlot(fmodel, type=1)
 
 #Knowing which variables are most important (or at least, which variables contribute
-#the most to the structure of the underlying decision trees) can help you with variable
+#the most to the structure of the underlying decision trees) can help us with variable
 #reduction. This is useful not only for building smaller, faster trees, but for
-#choosing variables to be used by another modeling algorithm, if that’s desired.
+#choosing variables to be used by another modeling algorithm.
 
 #Fitting with fewer variables
 selVars <- names(sort(varImp[,1], decreasing=T))[1:25]
